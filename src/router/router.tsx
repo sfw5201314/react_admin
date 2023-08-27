@@ -1,11 +1,12 @@
 //路由表
 import { Suspense, lazy } from 'react'; //路由懒加载
-import Layout from '../pages/layout';
+import { HomeOutlined, UserOutlined, SkinOutlined } from '@ant-design/icons';
+import Layout from '../components/layout';
+import Home from '../pages/home';
 //重定向组件
 import { Navigate } from 'react-router-dom';
 //路由懒加载  懒加载组件时需要加一个loading组件
-const Home = lazy(() => import('../pages/home/index'));
-
+const Users = lazy(() => import('../pages/users/index'));
 // 路由懒加载loading函数处理方式 懒加载组件时需要加一个loading组件
 const generateLoadingRouter = (component: JSX.Element) => {
   return (
@@ -34,9 +35,45 @@ const routes = [
     children: [
       {
         path: '/admin/home',
-        element: generateLoadingRouter(<Home />),
+        element: <Home />,
         name: '首页',
-        icon: ''
+        icon: <HomeOutlined />
+      },
+      {
+        name: '用户管理',
+        icon: <UserOutlined />,
+        children: [
+          {
+            path: '/admin/users',
+            element: generateLoadingRouter(<Users />),
+            name: '用户信息',
+            icon: <SkinOutlined />
+          },
+          {
+            path: '/admin/usersinfo',
+            element: generateLoadingRouter(<Users />),
+            name: '用户xian',
+            icon: ''
+          }
+        ]
+      },
+      {
+        name: '商品管理',
+        icon: <UserOutlined />,
+        children: [
+          {
+            path: '/admin/goods',
+            element: generateLoadingRouter(<Users />),
+            name: '用户信息',
+            icon: <SkinOutlined />
+          },
+          {
+            path: '/admin/goodsinfo',
+            element: generateLoadingRouter(<Users />),
+            name: '用户xian',
+            icon: ''
+          }
+        ]
       }
     ]
   }
