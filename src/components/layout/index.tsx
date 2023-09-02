@@ -8,6 +8,8 @@ import { Outlet } from 'react-router-dom';
 
 import LayoutMenu from './LayoutMenu';
 
+import Tabs from '../tab/Tab';
+
 const View: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -37,13 +39,14 @@ const View: React.FC = () => {
             }}
           />
         </Header>
-        <Breadcrumb style={{ margin: '10px 16px' }}>
+        {/* <Breadcrumb style={{ margin: '10px 16px' }}>
           <Breadcrumb.Item>User</Breadcrumb.Item>
           <Breadcrumb.Item>Bill</Breadcrumb.Item>
-        </Breadcrumb>
+        </Breadcrumb> */}
         {/* 右边区域主内容 */}
-        <Content style={{ margin: '0 16px', background: colorBgContainer, overflow: 'initial' }}>
+        <Content style={{ margin: '16px 16px', background: colorBgContainer, overflow: 'initial' }}>
           {/* 窗口内容部分，子组件 */}
+          <Tabs />
           <Outlet />
         </Content>
         {/* 右边区域底部 */}

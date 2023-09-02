@@ -64,13 +64,13 @@ const routes = [
           {
             path: '/admin/goods',
             element: generateLoadingRouter(<Users />),
-            name: '用户信息',
+            name: '商品信息',
             icon: <SkinOutlined />
           },
           {
             path: '/admin/goodsinfo',
             element: generateLoadingRouter(<Users />),
-            name: '用户xian',
+            name: '用户1231',
             icon: ''
           }
         ]
