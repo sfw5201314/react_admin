@@ -1,6 +1,6 @@
 //路由表
 import { Suspense, lazy } from 'react'; //路由懒加载
-import { HomeOutlined, UserOutlined, SkinOutlined } from '@ant-design/icons';
+import { DashboardOutlined, HomeOutlined, UserOutlined, SkinOutlined } from '@ant-design/icons';
 import Layout from '../components/layout';
 import Home from '../pages/home';
 //重定向组件
@@ -37,7 +37,7 @@ const routes = [
         path: '/admin/home',
         element: <Home />,
         name: '首页',
-        icon: <HomeOutlined />
+        icon: <DashboardOutlined />
       },
       {
         name: '用户管理',

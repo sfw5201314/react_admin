@@ -3,7 +3,8 @@ import { DndContext, PointerSensor, useSensor } from '@dnd-kit/core';
 import { arrayMove, horizontalListSortingStrategy, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import React, { useEffect, useState } from 'react';
-import { Tabs } from 'antd';
+import { Tabs, Popover, Button } from 'antd';
+import { SettingOutlined, CloseOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import routes from '../../router/router';
@@ -32,6 +33,7 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
     ...listeners
   });
 };
+
 const TabsIndex: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -57,7 +59,8 @@ const TabsIndex: React.FC = () => {
         label: routes[2].children?.[0].name,
         children: '',
         key: routes[2].children?.[0].path,
-        closeIcon: false
+        closeIcon: false,
+        isHome: true
       }
     ] as any);
 
@@ -110,9 +113,32 @@ const TabsIndex: React.FC = () => {
     }
   };
 
+  //删除除了首页以外的所有标签
+  const deleteAll = () => {
+    console.log('删除所有标签');
+    const newPanes = items.filter((pane: any) => pane.isHome);
+    setItems(newPanes);
+    sessionStorage.setItem('tabsList', JSON.stringify(newPanes));
+    navigate(newPanes[0].key);
+  };
+
+  const content = (
+    <div>
+      <Button type="text" size="small" block icon={<CloseOutlined />} onClick={deleteAll}>
+        关闭所有标签
+      </Button>
+    </div>
+  );
+
+  const operations = (
+    <Popover placement="bottomRight" arrow={false} content={content} trigger="hover">
+      <SettingOutlined style={{ paddingRight: '15px', marginLeft: '10px' }} />
+    </Popover>
+  );
   return (
     <div>
       <Tabs
+        tabBarExtraContent={operations}
         hideAdd
         onChange={onChange}
         activeKey={activeKey}

@@ -20,7 +20,8 @@ const LayoutMenu: React.FC = () => {
       label: routes[2].children?.[0].name,
       children: '',
       key: routes[2].children?.[0].path,
-      closeIcon: false
+      closeIcon: false,
+      isHome: true
     }
   ] as any);
 
@@ -112,7 +113,7 @@ const LayoutMenu: React.FC = () => {
   return (
     <>
       <Menu
-        theme="dark"
+        theme="light"
         //默认选中的菜单项 key 数组
         // defaultSelectedKeys={[location.pathname]}
         // 当前选中的菜单项 key 数组
