@@ -1,6 +1,6 @@
 //路由表
 import { Suspense, lazy } from 'react'; //路由懒加载
-import { DashboardOutlined, HomeOutlined, UserOutlined, SkinOutlined } from '@ant-design/icons';
+import { DashboardOutlined, UserOutlined, SkinOutlined } from '@ant-design/icons';
 import Layout from '../components/layout';
 import Home from '../pages/home';
 //重定向组件

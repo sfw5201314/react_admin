@@ -4,12 +4,17 @@ import type { MenuProps } from 'antd';
 type MenuItem = Required<MenuProps>['items'][number];
 import routes from '../../router/router';
 import { useNavigate, useLocation } from 'react-router-dom';
-const LayoutMenu: React.FC = () => {
+
+//定义父组件传递过来值的类型
+interface LayoutMenuProps {
+  getDrawerShow?: (data: boolean) => void;
+}
+
+const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   //点击二级菜单把当前的key存到sessionStorage，刷新页面时，把sessionStorage的key给到openKeys作为初始值
   //这个key给到openKeys作为初始值，就可以展开二级菜单
-
   const fristOpenKey: string = sessionStorage.getItem('openKey')
     ? JSON.parse(sessionStorage.getItem('openKey')!)[0]
     : '';
@@ -73,6 +78,8 @@ const LayoutMenu: React.FC = () => {
 
   //点击菜单
   const menuClick = (e: { domEvent: any; key: string; keyPath: Array<string> }) => {
+    //传递给父组件的值
+    props.getDrawerShow && props.getDrawerShow(false);
     let routerList = JSON.parse(sessionStorage.getItem('tabsList') as any);
     const routerTbasObj = {
       label: e.domEvent.target.innerText,

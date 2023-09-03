@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, UnorderedListOutlined, createFromIconfontCN } from '@ant-design/icons';
-import { Layout, theme, Button, Spin, Switch, Watermark, ConfigProvider } from 'antd';
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UnorderedListOutlined,
+  createFromIconfontCN,
+  GithubFilled,
+  PoweroffOutlined
+} from '@ant-design/icons';
+import { Layout, theme, Button, Spin, Switch, Watermark, ConfigProvider, Drawer } from 'antd';
 
 const { Header, Content, Sider } = Layout;
 
@@ -29,7 +36,6 @@ const View: React.FC = () => {
     token: { colorBgContainer }
   } = theme.useToken();
   useEffect(() => {
-    console.log(window.innerWidth);
     if (window.innerWidth < 768) {
       setSilderWidth(0);
       setIsShow(true);
@@ -53,11 +59,25 @@ const View: React.FC = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
-    // setValue(sessionStorage.getItem('theme') || 'default');
     return () => {
       window.removeEventListener('scroll', resizeUpdate);
     };
   }, []);
+
+  //抽屉控制
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  //子组件传递过来的值
+  const getDrawerShow = (data: boolean): void => {
+    setOpen(data);
+  };
 
   return (
     // default则使用theme.defaultAlgorithm, dark则使用theme.darkAlgorithm
@@ -81,13 +101,15 @@ const View: React.FC = () => {
               style={{
                 padding: 0,
                 background: value == 'default' ? colorBgContainer : '',
-                display: 'flex'
+                display: 'flex',
+                justifyContent: 'space-between'
               }}
             >
               {isShow ? (
                 <Button
                   type="text"
                   icon={<UnorderedListOutlined />}
+                  onClick={showDrawer}
                   style={{
                     fontSize: '16px',
                     width: 64,
@@ -107,9 +129,11 @@ const View: React.FC = () => {
                 />
               )}
 
-              <div>
-                {' '}
+              {/* 头部右边功能区 */}
+              <div style={{ marginRight: '16px' }}>
+                {/* 切换主题 */}
                 <Switch
+                  style={{ marginRight: '10px' }}
                   checkedChildren={<IconFont type="icon-DND_mode" />}
                   unCheckedChildren={<IconFont type="icon-brightness" />}
                   size="small"
@@ -122,6 +146,10 @@ const View: React.FC = () => {
                   }}
                   // defaultChecked 默认选中状态
                 />
+                <GithubFilled />
+                <Button style={{ marginLeft: '10px' }} icon={<PoweroffOutlined />} type="primary" size="small" danger>
+                  退出
+                </Button>
               </div>
             </Header>
             {/* 右边区域主内容 */}
@@ -136,7 +164,7 @@ const View: React.FC = () => {
               {/* 窗口内容部分，子组件 */}
 
               <Tabs />
-              <Watermark content="Ant Design">
+              <Watermark content="SFW Admin Design">
                 <div style={{ height: '100px' }}>
                   <Outlet />
                 </div>
@@ -145,6 +173,19 @@ const View: React.FC = () => {
 
             {/* 右边区域底部 */}
           </Layout>
+          {/* 抽屉盒子 */}
+          <Drawer
+            placement="left"
+            title="React Admin"
+            width={200}
+            bodyStyle={{ padding: 0 }}
+            closable={false}
+            onClose={onClose}
+            open={open}
+            key="left"
+          >
+            <LayoutMenu getDrawerShow={getDrawerShow} />
+          </Drawer>
         </Layout>
       </ConfigProvider>
     </Spin>
