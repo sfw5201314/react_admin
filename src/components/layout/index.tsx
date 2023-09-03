@@ -91,7 +91,25 @@ const View: React.FC = () => {
         <Layout style={{ minHeight: '100vh' }}>
           {/* 左边侧边栏 */}
           <Sider theme="light" breakpoint="md" width={silderWidth} trigger={null} collapsible collapsed={collapsed}>
-            <div className="demo-logo-vertical"></div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '64px',
+                textAlign: 'center',
+                lineHeight: '64px',
+                color: value == 'default' ? '' : '#fff'
+              }}
+              className="demo-logo-vertical"
+            >
+              <img
+                style={{ height: '30px', width: '30px', marginRight: '10px' }}
+                src="https://gw.alipayobjects.com/zos/antfincdn/PmY%24TNNDBI/logo.svg"
+                alt="logo"
+              />
+              react-admin
+            </div>
             <LayoutMenu />
           </Sider>
           {/* 右边内容区域 */}
