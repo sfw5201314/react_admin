@@ -3,10 +3,12 @@ import { Suspense, lazy } from 'react'; //路由懒加载
 import { DashboardOutlined, UserOutlined, SkinOutlined } from '@ant-design/icons';
 import Layout from '../components/layout';
 import Home from '../pages/home';
+import Login from '../pages/login';
 //重定向组件
 import { Navigate } from 'react-router-dom';
 //路由懒加载  懒加载组件时需要加一个loading组件
 const Users = lazy(() => import('../pages/users/index'));
+const Goods = lazy(() => import('../pages/goods/index'));
 // 路由懒加载loading函数处理方式 懒加载组件时需要加一个loading组件
 const generateLoadingRouter = (component: JSX.Element) => {
   return (
@@ -19,13 +21,18 @@ const generateLoadingRouter = (component: JSX.Element) => {
 const routes = [
   {
     path: '/',
-    element: <Navigate to="/admin" />,
+    element: <Navigate to="/login" />,
     name: '后台'
   },
   {
     path: '/admin',
     element: <Navigate to="/admin/home" />,
     name: '首页'
+  },
+  {
+    path: '/login',
+    element: <Login />,
+    name: '登录'
   },
   {
     path: '/admin',
@@ -63,7 +70,7 @@ const routes = [
         children: [
           {
             path: '/admin/goods',
-            element: generateLoadingRouter(<Users />),
+            element: generateLoadingRouter(<Goods />),
             name: '商品信息',
             icon: <SkinOutlined />
           },

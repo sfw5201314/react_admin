@@ -108,7 +108,6 @@ const View: React.FC = () => {
                 src="https://gw.alipayobjects.com/zos/antfincdn/PmY%24TNNDBI/logo.svg"
                 alt="logo"
               />
-              react-admin
             </div>
             <LayoutMenu />
           </Sider>

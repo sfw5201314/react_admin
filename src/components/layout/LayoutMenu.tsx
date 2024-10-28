@@ -52,7 +52,7 @@ const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
   }, [location]);
 
   //动态添加路由
-  const items: MenuItem[] = routes[2].children?.map((item) => {
+  const items: MenuItem[] = routes[3].children?.map((item) => {
     return {
       key: item.path,
       label: item.name,
